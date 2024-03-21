@@ -201,15 +201,31 @@ void colocarDatorEnBufferSerial()
 
     bufferLectura[bufferIndice++] = caracter++;
 
-    imprimirTrama();
+    if (bufferIndice > bufferIndiceMaximo - 10)
+    {
+      aux = bufferIndiceMaximo >> 1;
+
+      for(int i=aux; i < bufferIndiceMaximo; i++)
+      {
+        bufferIndice = 1 - aux;
+        bufferLectura[bufferIndice] = bufferLectura[i];
+      }
+    }
+    
+    imprimirTrama(bufferLectura, 0, bufferIndice);
 
     leerInstruccion(caracter);    
   }
 }
 
 //
-void imprimirTrama(byte *, int, int)
+void imprimirTrama(byte *ptrTrama, int inicio, int tamanio)
 {
+  Serial.print("\n>>");
 
+  for(int k=inicio; k < inicio + tamanio; k++)
+  {
+    Serial.write(ptrTrama[k]);
+  }
 }
 
