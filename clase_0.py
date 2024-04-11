@@ -48,10 +48,38 @@ class Ventana(QMainWindow):
 
         comu.cerrarPuerto()
 
+#
+class convertidor:
+    #--- función de inicio donde se pueden crear campos de la clase
+    def __init__(self):
+        pass
+
+    #---------------------------------------------------
+    def crearInstruccion(self, instruccion):
+        caracterInicio = '@'
+        caracterFin = '$'
+        orden = caracterInicio + instruccion + caracterFin
+        return orden
+
+    #--------- realiza una operación a nivel de bits entre 2 valores    
+    def operacionXOR(self, valor1, valor2):
+        resultado = valor1 ^ valor2                 # Realizar la operación XOR
+        print("XOR: ", bin(resultado))    # Imprimir el resultado en binario y decimal
+
+
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = Ventana()
-    window.show();
-    sys.exit(app.exec())
+    #app = QApplication(sys.argv)
+    #window = Ventana()
+    #window.show();
+    #sys.exit(app.exec())
+
+    convert = convertidor()         #haciendo uso de la clase convertidor
+
+    comu = comunic.Comunicacion('COM3', 9600)   #se crea un objeto de la clase comunicación
+    comu.probarPuerto()
+
+
+
+
        

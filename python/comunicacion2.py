@@ -6,7 +6,7 @@ class Comunicacion:
     def __init__(self, nombre, baudrate):
         # --------------------------
         self.puertoSerie = serial.Serial()
-        self.puertoSerie.port = nombre #"/dev/ttyUSB0"
+        self.puertoSerie.port = nombre #"COM3"
         self.puertoSerie.baudrate = baudrate #9600
         self.puertoSerie.parity = serial.PARITY_NONE
         self.puertoSerie.timeout = 1
@@ -38,29 +38,25 @@ class Comunicacion:
             r = self.puertoSerie.read(8)
             print(r, int.from_bytes(r))
         
-        return r    
+        #return r    
 
     def probarPuerto(self):
+        cadena = bytearray(1)   #en este caso va vacia la cadena pero puede llevar información
 
-        cadena = bytearray(1)
-        r = None
         if self.puertoSerie.is_open:
-            print('El puerto esta abierto')
-            
-            numero = 2
-            cadena[0]= numero
+            print('\nPuerto abierto. Leyendo... \n')
 
-            # enviando al microntrontrolador
-            self.puertoSerie.write(cadena)
-            time.sleep(0.01)
-            # leyendo del microcontrolador
-            r = self.puertoSerie.read(8)
-            print(r, int.from_bytes(r))
-        
-        return r 
+            # ENVIANDO al microntrontrolador
+            self.puertoSerie.write(cadena)   #función necesaria para establecer la comunicación y poder leer el serial
+            time.sleep(1.0)             #tiempo para lea (reciba) la información del serial
+
+            # LEYENDO del microcontrolador
+            r = self.puertoSerie.read(40)
+            print(r)
+
 
 def main():
-    comu = Comunicacion("/dev/ttyUSB0", 9600)
+    comu = Comunicacion("COM3", 9600)
     comu.abrirPuerto()
     comu.probarPuerto()
     comu.cerrarPuerto()

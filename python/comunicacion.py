@@ -25,18 +25,23 @@ puertoSerie.open()
 time.sleep(2)
 
 if puertoSerie.is_open:
-    print('El puerto esta abierto')
-    # while True:
-    #     r = puertoSerie.read(1)
-    #     print(r, int.from_bytes(r))
-    numero = 2
-    cadena[0]= numero
+    print('\nPuerto abierto. Leyendo...   \n')
 
-    # enviando al microntrontrolador
-    puertoSerie.write(cadena)
-    time.sleep(0.01)
-    # leyendo del microcontrolador
-    r = puertoSerie.read(25)
-    print(r, int.from_bytes(r))
+    # ENVIANDO al microntrontrolador
+    puertoSerie.write(cadena)   #función necesaria para establecer la comunicación y poder leer el serial
+    time.sleep(1.0)             #tiempo para lea (reciba) la información del serial
 
-puertoSerie.close()
+    # LEYENDO del microcontrolador
+    r = puertoSerie.read(40)
+    print(r)
+
+    puertoSerie.close()
+
+
+
+
+
+
+
+
+
